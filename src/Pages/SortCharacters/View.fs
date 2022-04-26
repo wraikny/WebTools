@@ -15,7 +15,7 @@ let root model dispatch =
         [ input
             [ ClassName "input"
               Type "text"
-              Placeholder "Type"
+              Placeholder "なにか入力してね"
               (if model.isUpdated then
                  DefaultValue model.input
                else
@@ -23,4 +23,4 @@ let root model dispatch =
               AutoFocus true
               OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
       br []
-      span [] [ str model.sorted ] ]
+      p [] [ str model.sorted ] ]
