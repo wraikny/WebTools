@@ -7,7 +7,10 @@ see [FablePlayground](https://wraikny.github.io/FablePlayground).
 
 ## Setup
 
+.NET, npm
+
 ```sh
+$ npm install
 $ dotnet tool restore
 ```
 
