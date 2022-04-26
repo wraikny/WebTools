@@ -28,7 +28,7 @@ let root model dispatch =
                 OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
       yield br []
 
-      let text = sprintf "\"%s\"をソートすると\"%s\"" model.input model.sorted
+      let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
 
       yield p [] [ str text ]
       yield br []
