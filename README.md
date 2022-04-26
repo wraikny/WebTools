@@ -3,6 +3,8 @@
 
 # FablePlayground
 
+see [FablePlayground](https://wraikny.github.io/FablePlayground).
+
 ## Setup
 
 ```sh

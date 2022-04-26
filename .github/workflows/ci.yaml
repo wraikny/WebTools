@@ -6,8 +6,18 @@ on:
       - master
 
 jobs:
+  skipci:
+    runs-on: ubuntu-latest
+
+    if: "contains(github.event.head_commit.message, 'ci:skip')"
+
+    steps:
+      - run: echo "ci:skip"
+
   deploy:
     runs-on: ubuntu-latest
+
+    if: "!contains(github.event.head_commit.message, 'ci:skip')"
 
     steps:
       - uses: actions/checkout@v3
