@@ -15,7 +15,7 @@ let getUrlWithPath () =
     location.pathname
     |> function
       | "/" -> ""
-      | s -> sprintf "/%s" s
+      | s -> s
 
   sprintf "%s//%s%s" location.protocol location.host pathname
 
