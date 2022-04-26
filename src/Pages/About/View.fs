@@ -18,7 +18,7 @@ let root =
         Env<"COMMIT_ID">.Value
         |> function
           | "" -> ("commits", "commits")
-          | commitId -> (sprintf "comimt/%s" commitId, sprintf "commit %s" commitId)
+          | commitId -> (sprintf "commit/%s" commitId, sprintf "commit %s" commitId)
 
       a
         [ Href(sprintf "https://github.com/wraikny/FablePlayground/%s" path)
