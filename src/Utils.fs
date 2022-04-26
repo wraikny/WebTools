@@ -8,24 +8,6 @@ let inline get (a: ^a) : ^b = (^a: (static member Get: _ -> _) a)
 let inline set (v: ^b) (a: ^a) : ^a =
   (^a: (static member Set: _ * _ -> _) a, v)
 
-let getUrlWithPath () =
-  let location = Browser.Dom.window.location
-
-  let pathname =
-    location.pathname
-    |> function
-      | "/" -> ""
-      | s ->
-        (s.Split('/')
-         |> Array.filter (fun x -> x <> "/")
-         |> String.concat "/")
-        + "/"
-
-  sprintf "%s//%s/%s" location.protocol location.host pathname
-
-open Fable.Core
-open Fable.Core.JS
-open Fable.Core.JsInterop
 open Fable.React
 open Fable.React.Props
 

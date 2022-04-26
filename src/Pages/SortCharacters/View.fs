@@ -26,11 +26,10 @@ let private resultView model =
               [ ClassName "button"
                 Disabled(model.input.Length = 0)
                 OnClick(fun _ev ->
-                  let root = Utils.getUrlWithPath ()
-                  let path = Page.toPath (SortCharacters model.input)
+                  let url = Browser.Dom.window.location.href
 
                   let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
-                  let _promise = clipboard.writeText (sprintf "%s \n%s%s" text root path)
+                  let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
                   ()
                 ) ]
               [ str "結果をコピー" ] ]
