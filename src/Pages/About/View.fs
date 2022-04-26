@@ -12,8 +12,8 @@ open FablePlayground
 let root =
 
   Utils.contentFrame
-    [ h1 [] [ str "About" ]
-      p [] [ str "Fableを使って適当なものを置く場所です。" ]
+    [ h1 [] [ str "このサイトについて" ]
+      p [] [ str "Fableで適当なものを置く場所です。" ]
 
       let path, message =
         Env<"COMMIT_ID">.Value

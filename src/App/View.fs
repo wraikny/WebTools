@@ -9,21 +9,21 @@ open FablePlayground.Pages
 open FablePlayground.App
 
 let menuItem label page currentPage =
-  li
-    []
-    [ a
-        [ classList [ "is-active", page = currentPage ]
-          Href(Page.toPath page) ]
-        [ str label ] ]
+  ul
+    [ ClassName "menu-list" ]
+    [ li
+        []
+        [ a
+            [ classList [ "is-active", page = currentPage ]
+              Href(Page.toPath page) ]
+            [ str label ] ] ]
 
 let menu model =
   aside
     [ ClassName "menu" ]
     [ p [ ClassName "menu-label" ] [ str "General" ]
-      ul [ ClassName "menu-list" ] [ menuItem "About" Page.About model.currentPage ]
-      ul
-        [ ClassName "menu-list" ]
-        [ menuItem "文字ソート" (Page.SortCharacters model.sortCharacters.input) model.currentPage ] ]
+      menuItem "このサイトについて" About model.currentPage
+      menuItem "文字をソートするやつ" (SortCharacters model.sortCharacters.input) model.currentPage ]
 
 let root model (dispatch: Msg -> unit) =
   let pageHtml page =

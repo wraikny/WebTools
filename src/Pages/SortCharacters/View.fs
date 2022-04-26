@@ -10,47 +10,50 @@ open FablePlayground
 open FablePlayground.Global
 open FablePlayground.Pages.SortCharacters
 
-let private resulbView model =
+let private resultView model =
   div
     []
-    [ yield p [] [ str model.sorted ]
+    [ div
+        [ ClassName "message" ]
+        [ div [ ClassName "message-header" ] [ p [] [ str "結果" ] ]
+          div [ ClassName "message-body" ] [ str model.sorted ] ]
 
       match Browser.Navigator.navigator.clipboard with
       | Some clipboard ->
-        yield
-          div
-            [ ClassName "buttons" ]
-            [ button
-                [ ClassName "button"
-                  OnClick(fun _ev ->
-                    let root = Utils.getRootUrl ()
-                    let path = Page.toPath (SortCharacters model.input)
+        div
+          [ ClassName "buttons" ]
+          [ button
+              [ ClassName "button"
+                Disabled(model.input.Length = 0)
+                OnClick(fun _ev ->
+                  let root = Utils.getRootUrl ()
+                  let path = Page.toPath (SortCharacters model.input)
 
-                    let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
-                    let _promise = clipboard.writeText (sprintf "%s \n%s/%s" text root path)
-                    ()
-                  ) ]
-                [ str "結果をコピー" ] ]
+                  let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
+                  let _promise = clipboard.writeText (sprintf "%s \n%s/%s" text root path)
+                  ()
+                ) ]
+              [ str "結果をコピー" ] ]
       | _ -> () ]
 
-let private createHistoryTable history =
-  table
-    [ ClassName "table" ]
-    [ thead
-        []
-        [ tr
-            []
-            [ th [] [ str "入力" ]
-              th [] [ str "出力" ] ] ]
-      tbody
-        []
-        (history
-         |> List.map (fun (input, sorted) ->
-           tr
-             []
-             [ td [] [ str input ]
-               td [] [ str sorted ] ]
-         )) ]
+// let private createHistoryTable history =
+//   table
+//     [ ClassName "table is-striped is-fullwidth" ]
+//     [ thead
+//         []
+//         [ tr
+//             []
+//             [ th [] [ str "入力" ]
+//               th [] [ str "出力" ] ] ]
+//       tbody
+//         []
+//         (history
+//          |> List.map (fun (input, sorted) ->
+//            tr
+//              []
+//              [ td [] [ str input ]
+//                td [] [ str sorted ] ]
+//          )) ]
 
 let root model dispatch =
   if model.initializedFromQuery then
@@ -59,7 +62,7 @@ let root model dispatch =
   Utils.contentFrame
     [ h1 [ ClassName "title" ] [ str "文字をソートするやつ" ]
       div
-        []
+        [ ClassName "block" ]
         [ p
             [ ClassName "control" ]
             [ input
@@ -72,22 +75,24 @@ let root model dispatch =
                      DefaultValue model.input)
                   AutoFocus true
                   OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ] ]
-      div [ ClassName "block" ] [ resulbView model ]
-      div
-        [ ClassName "block" ]
-        [ div
-            []
-            [ h2 [ ClassName "subtitle" ] [ str "履歴" ]
-              div
-                [ ClassName "buttons" ]
-                [ let createButton disabled label msg =
-                    button
-                      [ Disabled disabled
-                        ClassName "button"
-                        OnClick(fun _ -> dispatch msg) ]
-                      [ str label ]
 
-                  createButton (model.input = "") "メモ" Memo
-                  createButton false "クリア" ClearHistory ]
+      div [ ClassName "block" ] [ resultView model ]
+      // div
+      //   [ ClassName "block" ]
+      //   [ div
+      //       []
+      //       [ h2 [ ClassName "subtitle" ] [ str "履歴" ]
+      //         div
+      //           [ ClassName "buttons" ]
+      //           [ let createButton disabled label msg =
+      //               button
+      //                 [ Disabled disabled
+      //                   ClassName "button"
+      //                   OnClick(fun _ -> dispatch msg) ]
+      //                 [ str label ]
 
-              createHistoryTable model.history ] ] ]
+      //             createButton (model.input = "") "メモ" Memo
+      //             createButton false "クリア" ClearHistory ]
+
+      //         createHistoryTable model.history ] ]
+      ]
