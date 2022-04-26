@@ -27,5 +27,6 @@
     <PackageReference Include="Fable.Elmish.Debugger" Version="3.3.0" />
     <PackageReference Include="Fable.Elmish.HMR" Version="4.1.*" />
     <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
+    <PackageReference Include="FSharp.Data.LiteralProviders" Version="0.3.5" />
   </ItemGroup>
 </Project>

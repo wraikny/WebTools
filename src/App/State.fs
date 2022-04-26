@@ -30,11 +30,14 @@ module Model =
       console.error ("Error parsing url")
       model, Navigation.modifyUrl (Page.fromString model.currentPage)
 
-    | Some (SortCharacters s) ->
-      model
-      |> updateChild (SortCharacters.Model.update (SortCharacters.ChangeStr s))
+    | Some page ->
+      let model = { model with currentPage = page }
 
-    | Some page -> { model with currentPage = page }, []
+      match page with
+      | SortCharacters s ->
+        model
+        |> updateChild (SortCharacters.Model.update (SortCharacters.ChangeStr s))
+      | _ -> model, []
 
   let init result : Model * Cmd<Msg> =
     let (sortCharacters, sortCharactersCmd) =
