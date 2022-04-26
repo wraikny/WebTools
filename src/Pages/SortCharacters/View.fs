@@ -26,7 +26,7 @@ let private resultView model =
               [ ClassName "button"
                 Disabled(model.input.Length = 0)
                 OnClick(fun _ev ->
-                  let root = Utils.getRootUrl ()
+                  let root = Utils.getUrlWithPath ()
                   let path = Page.toPath (SortCharacters model.input)
 
                   let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted

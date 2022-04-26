@@ -8,9 +8,16 @@ let inline get (a: ^a) : ^b = (^a: (static member Get: _ -> _) a)
 let inline set (v: ^b) (a: ^a) : ^a =
   (^a: (static member Set: _ * _ -> _) a, v)
 
-let getRootUrl () =
+let getUrlWithPath () =
   let location = Browser.Dom.window.location
-  sprintf "%s//%s" location.protocol location.host
+
+  let pathname =
+    location.pathname
+    |> function
+      | "/" -> ""
+      | s -> sprintf "/%s" s
+
+  sprintf "%s//%s%s" location.protocol location.host pathname
 
 open Fable.Core
 open Fable.Core.JS
