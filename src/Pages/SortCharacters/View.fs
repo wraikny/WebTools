@@ -15,8 +15,8 @@ let root model dispatch =
         [ input
             [ ClassName "input"
               Type "text"
-              Placeholder "Type your name"
-              DefaultValue model.input
+              Placeholder "Type"
+              Value model.input
               AutoFocus true
               OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
       br []

@@ -1,5 +1,7 @@
 module FablePlayground.Global
 
+open Fable.Core.JS
+
 module private Hash =
   [<Literal>]
   let About = "about"
@@ -15,12 +17,22 @@ module Page =
   let fromString page =
     match page with
     | About -> sprintf "#%s" Hash.About
-    | SortCharacters s -> sprintf "#%s?value=%s" Hash.SortCharacters s
+    | SortCharacters s ->
+      let inputEncoded = encodeURIComponent s
+      sprintf "#%s?value=%s" Hash.SortCharacters inputEncoded
 
 module PageParser =
   open Elmish.UrlParser
 
+  let mappingSortCharactersValue =
+    Option.map decodeURIComponent
+    >> Option.defaultValue ""
+    >> SortCharacters
+
+  let parseSortCharactersValue () =
+    s Hash.SortCharacters <?> stringParam "value"
+
   let pageParser: Parser<Page -> Page, Page> =
     oneOf
       [ map About (s Hash.About)
-        map (Option.defaultValue "" >> SortCharacters) (s Hash.SortCharacters <?> stringParam "value") ]
+        map (mappingSortCharactersValue) (parseSortCharactersValue ()) ]

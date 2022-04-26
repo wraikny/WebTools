@@ -36,7 +36,7 @@ module Model =
       match page with
       | SortCharacters s ->
         model
-        |> updateChild (SortCharacters.Model.update (SortCharacters.ChangeStr s))
+        |> updateChild (fun _ -> SortCharacters.Model.init s)
       | _ -> model, []
 
   let init result : Model * Cmd<Msg> =
