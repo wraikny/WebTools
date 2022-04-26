@@ -5,12 +5,14 @@ open Elmish.Navigation
 
 open FablePlayground.Global
 
-type Msg = ChangeStr of string
+type Msg =
+  | ChangeStr of string
+  | Initialized
 
 type Model =
   { input: string
     sorted: string
-    isUpdated: bool }
+    initializedFromQuery: bool }
 
 module Model =
   let private sortCharacters (s: string) =
@@ -19,14 +21,19 @@ module Model =
     else
       s
 
-  let init s : Model * Cmd<Msg> =
+  let init initializedFromQuery s : Model * Cmd<Msg> =
     { input = s
       sorted = sortCharacters s
-      isUpdated = false },
-    []
+      initializedFromQuery = initializedFromQuery },
+    if initializedFromQuery then
+      [ (fun dispatch -> dispatch Initialized) ]
+    else
+      []
 
   let update msg model : Model * Cmd<Msg> =
     match msg with
+    | Initialized when model.initializedFromQuery -> { model with initializedFromQuery = false }, []
+    | Initialized -> model, []
     | ChangeStr str ->
       if model.input = str then
         model, []
@@ -35,5 +42,5 @@ module Model =
 
         { input = str
           sorted = sorted
-          isUpdated = true },
+          initializedFromQuery = false },
         Navigation.modifyUrl (Page.toPath (SortCharacters str))

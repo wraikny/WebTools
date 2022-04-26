@@ -20,7 +20,10 @@ let root model dispatch =
               [ ClassName "input"
                 Type "text"
                 Placeholder "なにか入力してね"
-                DefaultValue model.input
+                (if model.initializedFromQuery then
+                   Value model.input
+                 else
+                   DefaultValue model.input)
                 AutoFocus true
                 OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
       yield br []
