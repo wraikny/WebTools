@@ -36,7 +36,7 @@ module Model =
       match page with
       | SortCharacters s ->
         model
-        |> updateChild (fun _ -> SortCharacters.Model.init true s)
+        |> updateChild (fun m -> SortCharacters.Model.init true m.history s)
       | _ -> model, []
 
   let init result : Model * Cmd<Msg> =
@@ -47,7 +47,7 @@ module Model =
           | Some (SortCharacters s) -> s
           | _ -> ""
 
-      SortCharacters.Model.init false input
+      SortCharacters.Model.init false [] input
 
     let (model, cmd) =
       urlUpdate
