@@ -20,9 +20,11 @@ jobs:
         with:
           node-version: '14'
 
+      - name: npm Install
+        run: npm install
+
       - name: Restore .NET Tool
-        run: |
-          dotnet tool restore
+        run: dotnet tool restore
 
       - name: Format(Check)
         run: dotnet fake build -t format.check
