@@ -21,6 +21,7 @@
     <Compile Include="App/Program.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Fable.Browser.Navigator" Version="2.3.0" />
     <PackageReference Include="Fable.Core" Version="3.6.2" />
     <PackageReference Include="Fable.Elmish" Version="3.1.0" />
     <PackageReference Include="Fable.Elmish.Browser" Version="3.0.4" />

@@ -28,7 +28,7 @@ module Model =
     match result with
     | None ->
       console.error ("Error parsing url")
-      model, Navigation.modifyUrl (Page.fromString model.currentPage)
+      model, Navigation.modifyUrl (Page.toPath model.currentPage)
 
     | Some page ->
       let model = { model with currentPage = page }

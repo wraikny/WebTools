@@ -14,9 +14,10 @@ type Page =
   | SortCharacters of string
 
 module Page =
-  let fromString page =
+  let toPath page =
     match page with
     | About -> sprintf "#%s" Hash.About
+    | SortCharacters "" -> sprintf "#%s" Hash.SortCharacters
     | SortCharacters s ->
       let inputEncoded = encodeURIComponent s
       sprintf "#%s?value=%s" Hash.SortCharacters inputEncoded

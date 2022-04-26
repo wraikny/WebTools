@@ -13,7 +13,7 @@ let menuItem label page currentPage =
     []
     [ a
         [ classList [ "is-active", page = currentPage ]
-          Href(Page.fromString page) ]
+          Href(Page.toPath page) ]
         [ str label ] ]
 
 let menu model =

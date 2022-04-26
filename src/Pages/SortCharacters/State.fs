@@ -36,4 +36,4 @@ module Model =
         { input = str
           sorted = sorted
           isUpdated = true },
-        Navigation.modifyUrl (Page.fromString (SortCharacters str))
+        Navigation.modifyUrl (Page.toPath (SortCharacters str))
