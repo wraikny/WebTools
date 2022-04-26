@@ -21,7 +21,9 @@ let menu model =
     [ ClassName "menu" ]
     [ p [ ClassName "menu-label" ] [ str "General" ]
       ul [ ClassName "menu-list" ] [ menuItem "About" Page.About model.currentPage ]
-      ul [ ClassName "menu-list" ] [ menuItem "文字ソート" (Page.SortCharacters model.sortCharacters.input) model.currentPage ] ]
+      ul
+        [ ClassName "menu-list" ]
+        [ menuItem "文字ソート" (Page.SortCharacters model.sortCharacters.input) model.currentPage ] ]
 
 let root model (dispatch: Msg -> unit) =
   let pageHtml page =

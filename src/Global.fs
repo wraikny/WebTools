@@ -23,6 +23,4 @@ module PageParser =
   let pageParser: Parser<Page -> Page, Page> =
     oneOf
       [ map About (s Hash.About)
-        map
-          (Option.defaultValue "" >> SortCharacters)
-          (s Hash.SortCharacters <?> stringParam "value") ]
+        map (Option.defaultValue "" >> SortCharacters) (s Hash.SortCharacters <?> stringParam "value") ]
