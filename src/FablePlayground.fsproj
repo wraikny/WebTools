@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <WarnOn>1182</WarnOn>
+
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Utils.fs" />
+    <!-- Global to the app -->
+    <Compile Include="Global.fs" />
+    <!-- About -->
+    <Compile Include="Pages/About/View.fs" />
+    <!-- SortCharacters -->
+    <Compile Include="Pages/SortCharacters/State.fs" />
+    <Compile Include="Pages/SortCharacters/View.fs" />
+    <!-- Navbar -->
+    <Compile Include="Navbar/View.fs" />
+    <!-- App -->
+    <Compile Include="App/State.fs" />
+    <Compile Include="App/View.fs" />
+    <Compile Include="App/Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Core" Version="3.6.2" />
+    <PackageReference Include="Fable.Elmish" Version="3.1.0" />
+    <PackageReference Include="Fable.Elmish.Browser" Version="3.0.4" />
+    <PackageReference Include="Fable.Elmish.Debugger" Version="3.3.0" />
+    <PackageReference Include="Fable.Elmish.HMR" Version="4.1.*" />
+    <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
+  </ItemGroup>
+</Project>

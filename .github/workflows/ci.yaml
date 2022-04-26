@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Restore .NET Tool
+        run: |
+          dotnet tool restore
+
+      - name: Format(Check)
+        run: dotnet fake build -t format.check
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy
+          publish_branch: publish
