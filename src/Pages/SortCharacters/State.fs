@@ -25,10 +25,7 @@ module Model =
     { input = s
       sorted = sortCharacters s
       initializedFromQuery = initializedFromQuery },
-    if initializedFromQuery then
-      [ (fun dispatch -> dispatch Initialized) ]
-    else
-      []
+    []
 
   let update msg model : Model * Cmd<Msg> =
     match msg with

@@ -11,6 +11,9 @@ open FablePlayground.Global
 open FablePlayground.Pages.SortCharacters
 
 let root model dispatch =
+  if model.initializedFromQuery then
+    dispatch Msg.Initialized
+
   div
     []
     [ yield
