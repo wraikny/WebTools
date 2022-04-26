@@ -15,9 +15,13 @@ let getUrlWithPath () =
     location.pathname
     |> function
       | "/" -> ""
-      | s -> "/" + (s.Split('/') |> String.concat "/")
+      | s ->
+        (s.Split('/')
+         |> Array.filter (fun x -> x <> "/")
+         |> String.concat "/")
+        + "/"
 
-  sprintf "%s//%s%s" location.protocol location.host pathname
+  sprintf "%s//%s/%s" location.protocol location.host pathname
 
 open Fable.Core
 open Fable.Core.JS

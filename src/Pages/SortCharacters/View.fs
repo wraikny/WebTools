@@ -30,7 +30,7 @@ let private resultView model =
                   let path = Page.toPath (SortCharacters model.input)
 
                   let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
-                  let _promise = clipboard.writeText (sprintf "%s \n%s/%s" text root path)
+                  let _promise = clipboard.writeText (sprintf "%s \n%s%s" text root path)
                   ()
                 ) ]
               [ str "結果をコピー" ] ]
