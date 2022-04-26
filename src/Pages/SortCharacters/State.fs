@@ -17,9 +17,7 @@ module Model =
       s
 
   let init s : Model * Cmd<Msg> =
-    { input = sortCharacters s
-      sorted = "" },
-    []
+    { input = s; sorted = sortCharacters s }, []
 
   let update msg model : Model * Cmd<Msg> =
     match msg with
