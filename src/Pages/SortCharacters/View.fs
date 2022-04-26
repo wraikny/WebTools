@@ -10,81 +10,84 @@ open FablePlayground
 open FablePlayground.Global
 open FablePlayground.Pages.SortCharacters
 
-let root model dispatch =
-  if model.initializedFromQuery then
-    dispatch Msg.Initialized
-
+let private resulbView model =
   div
     []
-    [ p
-        [ ClassName "control" ]
-        [ input
-            [ ClassName "input"
-              Type "text"
-              Placeholder "なにか入力してね"
-              (if model.initializedFromQuery then
-                 Value model.input
-               else
-                 DefaultValue model.input)
-              AutoFocus true
-              OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
-      br []
+    [ yield p [] [ str model.sorted ]
 
-      div
-        [ ClassName "content" ]
-        [ div
-            [ ClassName "block" ]
-            [
-
-              if model.sorted <> "" then
-                yield
-                  div
-                    [ ClassName "box" ]
-                    [ yield p [] [ str model.sorted ]
-
-                      match Browser.Navigator.navigator.clipboard with
-                      | Some clipboard ->
-                        yield
-                          button
-                            [ ClassName "button"
-                              OnClick(fun _ev ->
-                                let root = Utils.getRootUrl ()
-                                let path = Page.toPath (SortCharacters model.input)
-
-                                let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
-                                let _promise = clipboard.writeText (sprintf "%s \n%s/%s" text root path)
-                                ()
-                              ) ]
-                            [ str "結果をコピー" ]
-
-                        yield br []
-                      | _ -> () ] ]
-
+      match Browser.Navigator.navigator.clipboard with
+      | Some clipboard ->
+        yield
           div
             [ ClassName "buttons" ]
             [ button
                 [ ClassName "button"
-                  OnClick(fun _ -> dispatch Memo) ]
-                [ str "メモ" ]
-              button
-                [ ClassName "button"
-                  OnClick(fun _ -> dispatch ClearHistory) ]
-                [ str "クリア" ] ]
+                  OnClick(fun _ev ->
+                    let root = Utils.getRootUrl ()
+                    let path = Page.toPath (SortCharacters model.input)
 
-          table
-            [ ClassName "table" ]
-            [ thead
-                []
-                [ tr
-                    []
-                    [ th [] [ str "入力" ]
-                      th [] [ str "出力" ] ] ]
-              tbody
-                []
-                (model.history
-                 |> List.map (fun (input, sorted) ->
-                   tr
-                     []
-                     [ td [] [ str input ]
-                       td [] [ str sorted ] ]
-                 )) ] ] ]
+                    let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
+                    let _promise = clipboard.writeText (sprintf "%s \n%s/%s" text root path)
+                    ()
+                  ) ]
+                [ str "結果をコピー" ] ]
+      | _ -> () ]
+
+let private createHistoryTable history =
+  table
+    [ ClassName "table" ]
+    [ thead
+        []
+        [ tr
+            []
+            [ th [] [ str "入力" ]
+              th [] [ str "出力" ] ] ]
+      tbody
+        []
+        (history
+         |> List.map (fun (input, sorted) ->
+           tr
+             []
+             [ td [] [ str input ]
+               td [] [ str sorted ] ]
+         )) ]
+
+let root model dispatch =
+  if model.initializedFromQuery then
+    dispatch Msg.Initialized
+
+  Utils.contentFrame
+    [ h1 [ ClassName "title" ] [ str "文字をソートするやつ" ]
+      div
+        []
+        [ p
+            [ ClassName "control" ]
+            [ input
+                [ ClassName "input"
+                  Type "text"
+                  Placeholder "なにか入力してね"
+                  (if model.initializedFromQuery then
+                     Value model.input
+                   else
+                     DefaultValue model.input)
+                  AutoFocus true
+                  OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ] ]
+      div [ ClassName "block" ] [ resulbView model ]
+      div
+        [ ClassName "block" ]
+        [ div
+            []
+            [ h2 [ ClassName "subtitle" ] [ str "履歴" ]
+              div
+                [ ClassName "buttons" ]
+                [ let createButton disabled label msg =
+                    button
+                      [ Disabled disabled
+                        ClassName "button"
+                        OnClick(fun _ -> dispatch msg) ]
+                      [ str label ]
+
+                  createButton (model.input = "") "メモ" Memo
+                  createButton false "クリア" ClearHistory ]
+
+              createHistoryTable model.history ] ] ]

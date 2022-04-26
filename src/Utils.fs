@@ -11,3 +11,12 @@ let inline set (v: ^b) (a: ^a) : ^a =
 let getRootUrl () =
   let location = Browser.Dom.window.location
   sprintf "%s//%s" location.protocol location.host
+
+open Fable.Core
+open Fable.Core.JS
+open Fable.Core.JsInterop
+open Fable.React
+open Fable.React.Props
+
+let contentFrame children =
+  div [ ClassName "card" ] [ div [ ClassName "card-content" ] [ div [ ClassName "content" ] children ] ]

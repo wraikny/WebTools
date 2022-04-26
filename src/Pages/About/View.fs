@@ -7,10 +7,11 @@ open Fable.React.Props
 
 open FSharp.Data.LiteralProviders
 
+open FablePlayground
+
 let root =
 
-  div
-    [ ClassName "content" ]
+  Utils.contentFrame
     [ h1 [] [ str "About" ]
       p [] [ str "Fableを使って適当なものを置く場所です。" ]
 
