@@ -15,7 +15,7 @@ let getUrlWithPath () =
     location.pathname
     |> function
       | "/" -> ""
-      | s -> s
+      | s -> "/" + (s.Split('/') |> String.concat "/")
 
   sprintf "%s//%s%s" location.protocol location.host pathname
 
