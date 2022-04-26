@@ -7,7 +7,10 @@ open FablePlayground.Global
 
 type Msg = ChangeStr of string
 
-type Model = { input: string; sorted: string }
+type Model =
+  { input: string
+    sorted: string
+    isUpdated: bool }
 
 module Model =
   let private sortCharacters (s: string) =
@@ -17,7 +20,10 @@ module Model =
       s
 
   let init s : Model * Cmd<Msg> =
-    { input = s; sorted = sortCharacters s }, []
+    { input = s
+      sorted = sortCharacters s
+      isUpdated = false },
+    []
 
   let update msg model : Model * Cmd<Msg> =
     match msg with
@@ -26,4 +32,8 @@ module Model =
         model, []
       else
         let sorted = new string (str.ToCharArray() |> Array.sort)
-        { input = str; sorted = sorted }, Navigation.modifyUrl (Page.fromString (SortCharacters str))
+
+        { input = str
+          sorted = sorted
+          isUpdated = true },
+        Navigation.modifyUrl (Page.fromString (SortCharacters str))

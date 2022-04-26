@@ -16,7 +16,10 @@ let root model dispatch =
             [ ClassName "input"
               Type "text"
               Placeholder "Type"
-              Value model.input
+              (if model.isUpdated then
+                 DefaultValue model.input
+               else
+                 Value model.input)
               AutoFocus true
               OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ]
       br []
