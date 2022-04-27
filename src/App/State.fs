@@ -38,6 +38,10 @@ module Model =
         model
         |> updateChild (fun _m -> SortCharacters.Model.init true s)
       | _ -> model, []
+      |> fun (model, cmd) ->
+           (model,
+            (Sub.setTitle (Title.toPageTitle model.currentPage))
+            :: cmd)
 
   let init result : Model * Cmd<Msg> =
     let (sortCharacters, sortCharactersCmd) = SortCharacters.Model.init false ""

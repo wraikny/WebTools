@@ -22,6 +22,24 @@ module Page =
       let inputEncoded = encodeURIComponent s
       sprintf "#%s?value=%s" Hash.SortCharacters inputEncoded
 
+module Title =
+  [<Literal>]
+  let Base = "wraikny's Fable Playground"
+
+  [<Literal>]
+  let About = Base
+
+  [<Literal>]
+  let SortCharacters = "文字をソートするやつ"
+
+  let SortCharactersTitle = sprintf "%s - %s" SortCharacters Base
+
+  let toPageTitle =
+    function
+    | Page.About -> Base
+    | Page.SortCharacters _ -> SortCharactersTitle
+
+
 module PageParser =
   open Elmish.UrlParser
 

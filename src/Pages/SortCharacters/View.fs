@@ -40,7 +40,8 @@ let private resultView model =
                   let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
                   ()
                 ) ]
-              [ str "結果をコピー" ] ]
+              [ span [ ClassName "icon" ] [ i [ ClassName "far fa-copy" ] [] ]
+                span [] [ str "コピー" ] ] ]
       | _ -> () ]
 
 let root model dispatch =
@@ -48,13 +49,13 @@ let root model dispatch =
     dispatch Msg.Initialized
 
   Utils.contentFrame
-    [ h1 [ ClassName "title" ] [ str "文字をソートするやつ" ]
+    [ h1 [ ClassName "title" ] [ str Title.SortCharacters ]
       div
         [ ClassName "block" ]
         [ p
-            [ ClassName "control" ]
+            [ ClassName "control has-icons-left" ]
             [ input
-                [ ClassName "input"
+                [ ClassName "input is-rounded"
                   Type "text"
                   Placeholder "なにか入力してね"
                   (if model.initializedFromQuery then
@@ -62,6 +63,7 @@ let root model dispatch =
                    else
                      DefaultValue model.input)
                   AutoFocus true
-                  OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ] ]
+                  OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ]
+              span [ ClassName "icon is-small is-left" ] [ i [ ClassName "fa fa-pen" ] [] ] ] ]
 
       div [ ClassName "block" ] [ resultView model ] ]

@@ -8,22 +8,29 @@ open FablePlayground.Global
 open FablePlayground.Pages
 open FablePlayground.App
 
-let menuItem label page currentPage =
+let menuItem label faClass page currentPage =
   ul
     [ ClassName "menu-list" ]
     [ li
         []
         [ a
-            [ classList [ "is-active", page = currentPage ]
+            [ classList
+                [ "is-active", page = currentPage
+                  "icon-text", true ]
               Href(Page.toPath page) ]
-            [ str label ] ] ]
+            [ span [ ClassName "icon" ] [ i [ ClassName(sprintf "fa %s" faClass) ] [] ]
+              span [] [ str label ]
+
+              ] ] ]
 
 let menu model =
   aside
     [ ClassName "menu" ]
     [ p [ ClassName "menu-label" ] [ str "General" ]
-      menuItem "このサイトについて" About model.currentPage
-      menuItem "文字をソートするやつ" (SortCharacters model.sortCharacters.input) model.currentPage ]
+
+      menuItem "ホーム" "fa-home" About model.currentPage
+
+      menuItem Title.SortCharacters "fa-arrow-down-a-z" (SortCharacters model.sortCharacters.input) model.currentPage ]
 
 let root model (dispatch: Msg -> unit) =
   let pageHtml page =
