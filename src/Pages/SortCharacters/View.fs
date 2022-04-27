@@ -16,7 +16,9 @@ let private resultView model =
     [ div
         [ ClassName "message" ]
         [ div [ ClassName "message-header" ] [ p [] [ str "結果" ] ]
-          div [ ClassName "message-body" ] [ str model.sorted ] ]
+          div [ ClassName "message-body overflow-wrap" ] [
+            div [ ClassName "break-word" ] [ str model.sorted ]
+           ] ]
 
       match Browser.Navigator.navigator.clipboard with
       | Some clipboard ->
@@ -28,31 +30,20 @@ let private resultView model =
                 OnClick(fun _ev ->
                   let url = Browser.Dom.window.location.href
 
-                  let text = sprintf "「%s」をソートすると「%s」" model.input model.sorted
+                  let text =
+                    sprintf
+                      (if model.input = model.sorted then
+                         "「%s」をソートしても「%s」"
+                       else
+                         "「%s」をソートすると「%s」")
+                      model.input
+                      model.sorted
+
                   let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
                   ()
                 ) ]
               [ str "結果をコピー" ] ]
       | _ -> () ]
-
-// let private createHistoryTable history =
-//   table
-//     [ ClassName "table is-striped is-fullwidth" ]
-//     [ thead
-//         []
-//         [ tr
-//             []
-//             [ th [] [ str "入力" ]
-//               th [] [ str "出力" ] ] ]
-//       tbody
-//         []
-//         (history
-//          |> List.map (fun (input, sorted) ->
-//            tr
-//              []
-//              [ td [] [ str input ]
-//                td [] [ str sorted ] ]
-//          )) ]
 
 let root model dispatch =
   if model.initializedFromQuery then
@@ -75,23 +66,4 @@ let root model dispatch =
                   AutoFocus true
                   OnChange(fun ev -> !!ev.target?value |> ChangeStr |> dispatch) ] ] ]
 
-      div [ ClassName "block" ] [ resultView model ]
-      // div
-      //   [ ClassName "block" ]
-      //   [ div
-      //       []
-      //       [ h2 [ ClassName "subtitle" ] [ str "履歴" ]
-      //         div
-      //           [ ClassName "buttons" ]
-      //           [ let createButton disabled label msg =
-      //               button
-      //                 [ Disabled disabled
-      //                   ClassName "button"
-      //                   OnClick(fun _ -> dispatch msg) ]
-      //                 [ str label ]
-
-      //             createButton (model.input = "") "メモ" Memo
-      //             createButton false "クリア" ClearHistory ]
-
-      //         createHistoryTable model.history ] ]
-      ]
+      div [ ClassName "block" ] [ resultView model ] ]

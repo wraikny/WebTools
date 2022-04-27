@@ -41,4 +41,4 @@ let root model (dispatch: Msg -> unit) =
             [ div
                 [ ClassName "columns" ]
                 [ div [ ClassName "column is-3" ] [ menu model ]
-                  div [ ClassName "column" ] [ pageHtml model.currentPage ] ] ] ] ]
+                  div [ ClassName "column is-6" ] [ pageHtml model.currentPage ] ] ] ] ]

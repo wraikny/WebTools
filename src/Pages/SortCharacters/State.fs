@@ -8,13 +8,10 @@ open FablePlayground.Global
 type Msg =
   | ChangeStr of string
   | Initialized
-// | Memo
-// | ClearHistory
 
 type Model =
   { input: string
     sorted: string
-    // history: (string * string) list
     initializedFromQuery: bool }
 
 module Model =
@@ -27,7 +24,6 @@ module Model =
   let init initializedFromQuery s : Model * Cmd<Msg> =
     { input = s
       sorted = sortCharacters s
-      // history = history
       initializedFromQuery = initializedFromQuery },
     []
 
@@ -35,10 +31,6 @@ module Model =
     match msg with
     | Initialized when model.initializedFromQuery -> { model with initializedFromQuery = false }, []
     | Initialized -> model, []
-    // | Memo when model.input = "" -> model, []
-    // | Memo -> { model with history = (model.input, model.sorted) :: model.history }, []
-    // | ClearHistory when model.history.Length = 0 -> model, []
-    // | ClearHistory -> { model with history = List.empty }, []
     | ChangeStr str ->
       if model.input = str then
         model, []
