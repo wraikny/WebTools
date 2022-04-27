@@ -16,9 +16,7 @@ let private resultView model =
     [ div
         [ ClassName "message" ]
         [ div [ ClassName "message-header" ] [ p [] [ str "結果" ] ]
-          div [ ClassName "message-body overflow-wrap" ] [
-            div [ ClassName "break-word" ] [ str model.sorted ]
-           ] ]
+          div [ ClassName "message-body overflow-wrap" ] [ div [ ClassName "break-word" ] [ str model.sorted ] ] ]
 
       match Browser.Navigator.navigator.clipboard with
       | Some clipboard ->
