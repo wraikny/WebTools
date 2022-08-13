@@ -1,4 +1,4 @@
-module FablePlayground
+namespace FablePlayground
 
 open Elmish
 
