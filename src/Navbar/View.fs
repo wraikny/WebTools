@@ -19,7 +19,11 @@ let navButtons =
     [ ClassName "navbar-item" ]
     [ div
         [ ClassName "field is-grouped" ]
-        [ navButton "twitter" "https://twitter.com/wraikny" "fa-twitter" "Twitter" (* navButton "github" "https://github.com/wraikny/WebTools" "fa-github" "GitHub" *)  ] ]
+        [ navButton
+            "twitter"
+            "https://twitter.com/wraikny"
+            "fa-twitter"
+            "Twitter" (* navButton "github" "https://github.com/wraikny/WebTools" "fa-github" "GitHub" *)  ] ]
 
 let root =
   nav
