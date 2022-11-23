@@ -8,24 +8,23 @@ open System.IO
 
 open FSharp.Data
 
-type Distincted = Distincted of string[] * string
+type Distincted = Distincted of string [] * string
 
 let private distinctedPokemons =
-  let d s = Distincted ([| s |], s)
-  [|
-    Distincted ([| "ケンタロス"; "パルデア" |], "ケンタロス(パルデア)")
+  let d s = Distincted([| s |], s)
 
-    d "オドリドリ"
-    d "バスラオ"
-    d "ロトム"
-    d "イッカネズミ"
-    d "ウーラオス"
-    d "シャリタツ"
-    d "ノココッチ"
-    d "ストリンダー"
-  |]
+  [| Distincted([| "ケンタロス"; "パルデア" |], "ケンタロス(パルデア)")
 
-let private parseName (node: HtmlNode): string =
+     d "オドリドリ"
+     d "バスラオ"
+     d "ロトム"
+     d "イッカネズミ"
+     d "ウーラオス"
+     d "シャリタツ"
+     d "ノココッチ"
+     d "ストリンダー" |]
+
+let private parseName (node: HtmlNode) : string =
   let name =
     node.InnerText().Split('\n')
     |> Array.map (fun s ->
@@ -38,21 +37,25 @@ let private parseName (node: HtmlNode): string =
     |> String.concat ""
 
   distinctedPokemons
-  |> Array.tryFind (fun (Distincted(targets, _)) ->
-    targets |> Array.forall (fun t -> name.Contains(t))
+  |> Array.tryFind (fun (Distincted (targets, _)) ->
+    targets
+    |> Array.forall (fun t -> name.Contains(t))
   )
   |> function
-  | None -> name
-  | Some (Distincted (_, replaced)) -> replaced
+    | None -> name
+    | Some (Distincted (_, replaced)) -> replaced
 
 
-let private nodesToPokemon = function
+let private nodesToPokemon =
+  function
   | [| no: HtmlNode; name; h; a; b; c; d; s; sum |] ->
     let name =
       name
       |> HtmlNode.descendantsNamed false [ "a" ]
       |> Seq.head
+
     let n = parseName name
+
     let url =
       name
       |> HtmlNode.tryGetAttribute "href"
@@ -67,8 +70,7 @@ let private nodesToPokemon = function
       c = c.InnerText() |> int
       d = d.InnerText() |> int
       s = s.InnerText() |> int
-      sum = sum.InnerText() |> int
-    } : Shared.Pokemon
+      sum = sum.InnerText() |> int }: Shared.Pokemon
   | x -> failwithf "failed: %A" (x |> Array.map (fun x -> x.InnerText()))
 
 let private parse (doc: HtmlDocument) =
@@ -84,7 +86,7 @@ let private parse (doc: HtmlDocument) =
     >> nodesToPokemon
   )
 
-let private load (): Shared.Pokemon[] =
+let private load () : Shared.Pokemon [] =
   let pokemons =
     HtmlDocument.Load(Shared.DataPath)
     |> parse

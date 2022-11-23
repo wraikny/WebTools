@@ -26,6 +26,7 @@ let formatTargets =
   -- "src/*/obj/**/*.fs"
   -- "src/*/bin/**/*.fs"
   ++ "build.fsx"
+  ++ "scripts/**/*.fsx"
 
 Target.initEnvironment ()
 

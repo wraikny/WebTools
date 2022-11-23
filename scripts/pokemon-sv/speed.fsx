@@ -2,7 +2,8 @@
 
 open System.IO
 
-let [<Literal>] MinimumStatusSum: int = 430
+[<Literal>]
+let MinimumStatusSum: int = 430
 
 type SpeedKind =
   | Saisoku of single
@@ -10,34 +11,36 @@ type SpeedKind =
   | Mufuri of single
   | Saichi of single
 
-let speedKinds = [|
-  Saisoku 2.00f
-  Saisoku 1.50f
-  Saisoku 1.00f
-  Saisoku 0.75f
+let speedKinds =
+  [| Saisoku 2.00f
+     Saisoku 1.50f
+     Saisoku 1.00f
+     Saisoku 0.75f
 
-  Junsoku 2.00f
-  Junsoku 1.50f
-  Junsoku 1.00f
-  Junsoku 0.75f
+     Junsoku 2.00f
+     Junsoku 1.50f
+     Junsoku 1.00f
+     Junsoku 0.75f
 
-  Mufuri 1.50f
-  Mufuri 1.00f
-  Mufuri 0.75f
+     Mufuri 1.50f
+     Mufuri 1.00f
+     Mufuri 0.75f
 
-  Saichi 1.00f
-  Saichi 0.75f
-  Saichi 0.50f
-|]
+     Saichi 1.00f
+     Saichi 0.75f
+     Saichi 0.50f |]
 
 let calc ({ s = s }: Shared.Pokemon) (speed) =
-  let f v e = (s * 2 + v + e / 4) * 50 / 100 + 5 |> single
+  let f v e =
+    (s * 2 + v + e / 4) * 50 / 100 + 5 |> single
+
   match speed with
   | Saisoku x -> x * 1.1f * f 31 252
   | Junsoku x -> x * 1.0f * f 31 252
-  | Mufuri x  -> x * 1.0f * f 31 000
-  | Saichi x  -> x * 0.9f * f 00 000
-  |> floor |> int
+  | Mufuri x -> x * 1.0f * f 31 0
+  | Saichi x -> x * 0.9f * f 0 0
+  |> floor
+  |> int
 
 // do
 //   let pokemons =
