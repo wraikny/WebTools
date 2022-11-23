@@ -1,12 +1,12 @@
-module FablePlayground.App.View
+module WebTools.App.View
 
 open Fable.React
 open Fable.React.Props
 
-open FablePlayground
-open FablePlayground.Global
-open FablePlayground.Pages
-open FablePlayground.App
+open WebTools
+open WebTools.Global
+open WebTools.Pages
+open WebTools.App
 
 let menuItem label faClass page currentPage =
   ul

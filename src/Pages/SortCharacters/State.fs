@@ -1,9 +1,9 @@
-namespace FablePlayground.Pages.SortCharacters
+namespace WebTools.Pages.SortCharacters
 
 open Elmish
 open Elmish.Navigation
 
-open FablePlayground.Global
+open WebTools.Global
 
 type Msg =
   | ChangeStr of string

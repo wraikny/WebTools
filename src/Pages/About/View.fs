@@ -1,4 +1,4 @@
-module FablePlayground.Pages.About.View
+module WebTools.Pages.About.View
 
 open Fable.Core
 
@@ -7,8 +7,8 @@ open Fable.React.Props
 
 open FSharp.Data.LiteralProviders
 
-open FablePlayground
-open FablePlayground.Global
+open WebTools
+open WebTools.Global
 
 let root =
 
@@ -24,7 +24,7 @@ let root =
             let path, message = (sprintf "commit/%s" commitId, sprintf "commit %s" commitId)
 
             a
-              [ Href(sprintf "https://github.com/wraikny/FablePlayground/%s" path)
+              [ Href(sprintf "https://github.com/wraikny/WebTools/%s" path)
                 Target "_blank"
                 Rel "noopener noreferrer" ]
               [ str (sprintf "%s" message) ] ] ]

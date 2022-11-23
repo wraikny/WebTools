@@ -1,4 +1,4 @@
-module FablePlayground.Utils
+module WebTools.Utils
 
 let inline lift (a: ^a) : ^b =
   ((^a or ^b): (static member Lift: _ -> _) a)

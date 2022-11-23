@@ -1,4 +1,4 @@
-module FablePlayground.Pages.SortCharacters.View
+module WebTools.Pages.SortCharacters.View
 
 open Fable.Core
 open Fable.Core.JS
@@ -6,9 +6,9 @@ open Fable.Core.JsInterop
 open Fable.React
 open Fable.React.Props
 
-open FablePlayground
-open FablePlayground.Global
-open FablePlayground.Pages.SortCharacters
+open WebTools
+open WebTools.Global
+open WebTools.Pages.SortCharacters
 
 let private resultView model =
   div

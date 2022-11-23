@@ -1,12 +1,12 @@
-namespace FablePlayground.App
+namespace WebTools.App
 
 open Elmish
 open Elmish.Navigation
 open Browser
 
-open FablePlayground
-open FablePlayground.Global
-open FablePlayground.Pages
+open WebTools
+open WebTools.Global
+open WebTools.Pages
 
 type Msg =
   | SortCharactersMsg of SortCharacters.Msg

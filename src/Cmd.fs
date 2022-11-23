@@ -1,4 +1,4 @@
-namespace FablePlayground
+namespace WebTools
 
 open Elmish
 

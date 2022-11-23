@@ -1,4 +1,4 @@
-module FablePlayground.Navbar.View
+module WebTools.Navbar.View
 
 open Fable.React
 open Fable.React.Props
@@ -20,7 +20,7 @@ let navButtons =
     [ div
         [ ClassName "field is-grouped" ]
         [ navButton "twitter" "https://twitter.com/wraikny" "fa-twitter" "Twitter"
-          navButton "github" "https://github.com/wraikny/FablePlayground" "fa-github" "GitHub" ] ]
+          navButton "github" "https://github.com/wraikny/WebTools" "fa-github" "GitHub" ] ]
 
 let root =
   nav

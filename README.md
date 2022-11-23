@@ -1,9 +1,7 @@
-[![](https://github.com/wraikny/FablePlayground/workflows/CI/badge.svg)](https://github.com/wraikny/FablePlayground/actions?workflow=CI)
+[![](https://github.com/wraikny/WebTools/workflows/CI/badge.svg)](https://github.com/wraikny/WebTools/actions?workflow=CI)
 
 
-# FablePlayground
-
-see [FablePlayground](https://wraikny.github.io/FablePlayground).
+# WebTools
 
 ## Setup
 

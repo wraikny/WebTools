@@ -1,4 +1,4 @@
-module FablePlayground.App.Program
+module WebTools.App.Program
 
 open Elmish
 open Elmish.Navigation
@@ -9,8 +9,8 @@ open Elmish.React
 open Elmish.Debug
 open Elmish.HMR
 
-open FablePlayground.Global
-open FablePlayground.App
+open WebTools.Global
+open WebTools.App
 
 do
   importAll "../../sass/main.sass"

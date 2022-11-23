@@ -1,4 +1,4 @@
-module FablePlayground.Global
+module WebTools.Global
 
 open Fable.Core.JS
 
