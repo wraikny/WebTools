@@ -10,6 +10,18 @@ open FSharp.Data.LiteralProviders
 open WebTools
 open WebTools.Global
 
+let private commitId () =
+  [ match Env<"COMMIT_ID">.Value with
+    | "" -> ()
+    | commitId ->
+      let path, message = (sprintf "commit/%s" commitId, sprintf "commit %s" commitId)
+
+      a
+        [ Href(sprintf "https://github.com/wraikny/WebTools/%s" path)
+          Target "_blank"
+          Rel "noopener noreferrer" ]
+        [ str (sprintf "%s" message) ] ]
+
 let root =
 
   Utils.contentFrame
@@ -17,14 +29,4 @@ let root =
       div
         [ ClassName "block" ]
         [ p [] [ str "Fableで適当なものを置く場所です。" ]
-
-          match Env<"COMMIT_ID">.Value with
-          | "" -> ()
-          | commitId ->
-            let path, message = (sprintf "commit/%s" commitId, sprintf "commit %s" commitId)
-
-            a
-              [ Href(sprintf "https://github.com/wraikny/WebTools/%s" path)
-                Target "_blank"
-                Rel "noopener noreferrer" ]
-              [ str (sprintf "%s" message) ] ] ]
+          yield! commitId () ] ]

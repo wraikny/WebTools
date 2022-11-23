@@ -24,7 +24,7 @@ module Page =
 
 module Title =
   [<Literal>]
-  let Base = "wraikny's Fable Playground"
+  let Base = "wraikny's WebTools"
 
   [<Literal>]
   let About = Base
