@@ -6,17 +6,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack-dev-server",
     "build": "npx webpack",
-    "update-packages": "npx -p npm-check-updates  -c \"ncu -u\""
+    "update-packages": "npx -p npm-check-updates -c \"ncu -u\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "remotedev": "^0.2.9"
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
+    "remotedev": "^0.2.9",
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@fortawesome/fontawesome-free": "^6.1.1",
