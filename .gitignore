@@ -201,5 +201,6 @@ out
 .fable
 
 /scripts/data/*
+!/scripts/data/stats_list.json
 
 !**/.gitkeep
