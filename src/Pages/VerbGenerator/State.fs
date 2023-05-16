@@ -53,5 +53,5 @@ module Model =
 
   let update msg model : Model * Cmd<Msg> =
     match msg with
-    | SetCount count -> { model with count = count }, Cmd.none
+    | SetCount count -> { model with count = count }, Navigation.modifyUrl (toPage model |> Page.toPath)
     | Generate -> { model with words = generateWords model.count }, Navigation.modifyUrl (toPage model |> Page.toPath)

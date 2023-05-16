@@ -37,12 +37,10 @@ let root model dispatch =
             [ div
                 [ ClassName "select" ]
                 [ select
-                    []
+                    [ Value model.count
+                      OnChange(fun ev -> !!ev.target?value |> SetCount |> dispatch) ]
                     [ for i in 1..10 do
-                        option
-                          [ Selected(i = model.count)
-                            OnClick(fun _ -> dispatch (SetCount i)) ]
-                          [ str (i.ToString()) ] ] ]
+                        option [ Value i ] [ str (i.ToString()) ] ] ]
               button
                 [ ClassName "button"
                   OnClick(fun _ -> dispatch Generate) ]
