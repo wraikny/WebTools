@@ -17,11 +17,27 @@ module Model =
 
     text.Split(',')
 
+  let generateWords count =
+    let random = System.Random()
+
+    let rec loop acc =
+      function
+      | 0 -> acc
+      | count ->
+        let n = random.Next(words.Length)
+
+        if List.contains n acc then
+          loop acc count
+        else
+          loop (n :: acc) (count - 1)
+
+    loop [] count |> List.map (Array.get words)
+
   let defaultCount = 3
 
   let init count : Model * Cmd<Msg> =
     let count = defaultArg count defaultCount
-    { count = count; words = [] }, Cmd.none
+    { count = count; words = generateWords count }, Cmd.none
 
   let toPage model =
     VerbGenerator(
@@ -35,17 +51,4 @@ module Model =
     match msg with
     | SetCount count -> { model with count = count }, Cmd.none
     | Generate ->
-      let random = System.Random()
-
-      let rec loop acc =
-        function
-        | 0 -> acc
-        | count ->
-          let n = random.Next(words.Length)
-
-          if List.contains n acc then
-            loop acc count
-          else
-            loop (n :: acc) (count - 1)
-
-      { model with words = loop [] model.count |> List.map (Array.get words) }, Cmd.none
+      { model with words = generateWords model.count }, Cmd.none
