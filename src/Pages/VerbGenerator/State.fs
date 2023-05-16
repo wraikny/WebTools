@@ -38,7 +38,10 @@ module Model =
 
   let init count : Model * Cmd<Msg> =
     let count = defaultArg count defaultCount
-    { count = count; words = generateWords count }, Cmd.none
+
+    { count = count
+      words = generateWords count },
+    Cmd.none
 
   let toPage model =
     VerbGenerator(
@@ -51,6 +54,4 @@ module Model =
   let update msg model : Model * Cmd<Msg> =
     match msg with
     | SetCount count -> { model with count = count }, Cmd.none
-    | Generate ->
-      { model with words = generateWords model.count },
-      Navigation.modifyUrl (toPage model |> Page.toPath)
+    | Generate -> { model with words = generateWords model.count }, Navigation.modifyUrl (toPage model |> Page.toPath)

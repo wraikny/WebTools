@@ -32,17 +32,19 @@ let root model dispatch =
     [ h1 [ ClassName "title" ] [ str Title.VerbGenerator ]
       div
         [ ClassName "block" ]
-        [ div
-            [ ClassName "select" ]
-            [ select
-                []
-                [ for i in 1..10 do
-                    option
-                      [ Selected(i = model.count)
-                        OnClick(fun _ -> dispatch (SetCount i)) ]
-                      [ str (i.ToString()) ] ] ]
-          button
-            [ ClassName "button"
-              OnClick(fun _ -> dispatch Generate) ]
-            [ str "生成" ] ]
+        [ p
+            [ ClassName "control" ]
+            [ div
+                [ ClassName "select" ]
+                [ select
+                    []
+                    [ for i in 1..10 do
+                        option
+                          [ Selected(i = model.count)
+                            OnClick(fun _ -> dispatch (SetCount i)) ]
+                          [ str (i.ToString()) ] ] ]
+              button
+                [ ClassName "button"
+                  OnClick(fun _ -> dispatch Generate) ]
+                [ str "生成" ] ] ]
       div [ ClassName "block" ] [ resultView model ] ]
