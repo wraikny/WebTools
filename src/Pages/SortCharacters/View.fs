@@ -13,42 +13,24 @@ open WebTools.Pages.SortCharacters
 let private resultView model =
   div
     []
-    [ div
-        [ ClassName "message" ]
-        [ div [ ClassName "message-header" ] [ p [] [ str "結果" ] ]
-          div [ ClassName "message-body overflow-wrap" ] [ div [ ClassName "break-word" ] [ str model.sorted ] ] ]
-
-      match Browser.Navigator.navigator.clipboard with
-      | Some clipboard ->
-        div
-          [ ClassName "buttons" ]
-          [ button
-              [ ClassName "button"
-                Disabled(model.input.Length = 0)
-                OnClick(fun _ev ->
-                  let url = Browser.Dom.window.location.href
-
-                  let text =
-                    sprintf
-                      (if model.input = model.sorted then
-                         "「%s」をソートしても「%s」"
-                       else
-                         "「%s」をソートすると「%s」")
-                      model.input
-                      model.sorted
-
-                  let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
-                  ()
-                ) ]
-              [ span [ ClassName "icon" ] [ i [ ClassName "far fa-copy" ] [] ]
-                span [] [ str "コピー" ] ] ]
-      | _ -> () ]
+    [ Utils.View.messageBox "結果" [ str model.sorted ]
+      yield!
+        Utils.View.copyToClipboard
+          (model.input.Length = 0)
+          (sprintf
+            (if model.input = model.sorted then
+                "「%s」をソートしても「%s」"
+              else
+                "「%s」をソートすると「%s」")
+            model.input
+            model.sorted)
+    ]
 
 let root model dispatch =
   if model.initializedFromQuery then
     dispatch Msg.Initialized
 
-  Utils.contentFrame
+  Utils.View.contentFrame
     [ h1 [ ClassName "title" ] [ str Title.SortCharacters ]
       div
         [ ClassName "block" ]

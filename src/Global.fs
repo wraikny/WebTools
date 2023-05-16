@@ -9,9 +9,13 @@ module private Hash =
   [<Literal>]
   let SortCharacters = "sort-characters"
 
+  [<Literal>]
+  let VerbGenerator = "verb-generator"
+
 type Page =
   | About
   | SortCharacters of string
+  | VerbGenerator of int option
 
 module Page =
   let toPath page =
@@ -21,6 +25,8 @@ module Page =
     | SortCharacters s ->
       let inputEncoded = encodeURIComponent s
       sprintf "#%s?value=%s" Hash.SortCharacters inputEncoded
+    | VerbGenerator None -> sprintf "#%s" Hash.VerbGenerator
+    | VerbGenerator (Some n) -> sprintf "#%s?count=%d" Hash.VerbGenerator n
 
 module Title =
   [<Literal>]
@@ -30,7 +36,10 @@ module Title =
   let About = Base
 
   [<Literal>]
-  let SortCharacters = "文字をソートするやつ"
+  let SortCharacters = "文字列ソート"
+
+  [<Literal>]
+  let VerbGenerator = "ランダム動詞ジェネレータ"
 
   let SortCharactersTitle = sprintf "%s - %s" SortCharacters Base
 
@@ -38,6 +47,7 @@ module Title =
     function
     | Page.About -> Base
     | Page.SortCharacters _ -> SortCharactersTitle
+    | Page.VerbGenerator _ -> VerbGenerator
 
 
 module PageParser =
@@ -48,10 +58,8 @@ module PageParser =
     >> Option.defaultValue ""
     >> SortCharacters
 
-  let parseSortCharactersValue () =
-    s Hash.SortCharacters <?> stringParam "value"
-
   let pageParser: Parser<Page -> Page, Page> =
     oneOf
       [ map About (s Hash.About)
-        map (mappingSortCharactersValue) (parseSortCharactersValue ()) ]
+        map (mappingSortCharactersValue) (s Hash.SortCharacters <?> stringParam "value")
+        map VerbGenerator (s Hash.VerbGenerator <?> intParam "count") ]

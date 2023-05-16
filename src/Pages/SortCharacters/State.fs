@@ -27,6 +27,8 @@ module Model =
       initializedFromQuery = initializedFromQuery },
     []
 
+  let toPage model = SortCharacters model.input
+
   let update msg model : Model * Cmd<Msg> =
     match msg with
     | Initialized when model.initializedFromQuery -> { model with initializedFromQuery = false }, []

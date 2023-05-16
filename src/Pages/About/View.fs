@@ -24,7 +24,7 @@ let private commitId () =
 
 let root =
 
-  Utils.contentFrame
+  Utils.View.contentFrame
     [ h1 [] [ str Title.About ]
       div
         [ ClassName "block" ]

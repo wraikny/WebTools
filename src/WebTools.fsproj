@@ -14,6 +14,9 @@
     <!-- SortCharacters -->
     <Compile Include="Pages/SortCharacters/State.fs" />
     <Compile Include="Pages/SortCharacters/View.fs" />
+    <!-- VerbGenerator -->
+    <Compile Include="Pages/VerbGenerator/State.fs" />
+    <Compile Include="Pages/VerbGenerator/View.fs" />
     <!-- Navbar -->
     <Compile Include="Navbar/View.fs" />
     <!-- App -->
@@ -29,6 +32,6 @@
     <PackageReference Include="Fable.Elmish.Debugger" Version="3.3.0" />
     <PackageReference Include="Fable.Elmish.HMR" Version="4.1.*" />
     <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
-    <PackageReference Include="FSharp.Data.LiteralProviders" Version="0.3.5" />
+    <PackageReference Include="FSharp.Data.LiteralProviders" Version="1.0.3" />
   </ItemGroup>
 </Project>

@@ -36,7 +36,8 @@ let root model (dispatch: Msg -> unit) =
   let pageHtml page =
     match page with
     | Page.About -> About.View.root
-    | Page.SortCharacters _ -> SortCharacters.View.root model.sortCharacters (Utils.lift >> dispatch)
+    | Page.SortCharacters _ -> SortCharacters.View.root model.sortCharacters (SortCharactersMsg >> dispatch)
+    | Page.VerbGenerator _ -> VerbGenerator.View.root model.verbGenerator (VerbGeneratorMsg >> dispatch)
 
   div
     []
