@@ -26,18 +26,17 @@ module View =
 
   let copyToClipboard disabled text =
     match Browser.Navigator.navigator.clipboard with
-      | Some clipboard ->
-        [ div
-            [ ClassName "buttons" ]
-            [ button
-                [ ClassName "button"
-                  Disabled disabled
-                  OnClick(fun _ev ->
-                    let url = Browser.Dom.window.location.href
-                    let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
-                    ()
-                  ) ]
-                [ span [ ClassName "icon" ] [ i [ ClassName "far fa-copy" ] [] ]
-                  span [] [ str "コピー" ] ] ]
-        ]
-      | _ -> List.empty
+    | Some clipboard ->
+      [ div
+          [ ClassName "buttons" ]
+          [ button
+              [ ClassName "button"
+                Disabled disabled
+                OnClick(fun _ev ->
+                  let url = Browser.Dom.window.location.href
+                  let _promise = clipboard.writeText (sprintf "%s \n%s" text url)
+                  ()
+                ) ]
+              [ span [ ClassName "icon" ] [ i [ ClassName "far fa-copy" ] [] ]
+                span [] [ str "コピー" ] ] ] ]
+    | _ -> List.empty

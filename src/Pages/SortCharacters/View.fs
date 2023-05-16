@@ -19,12 +19,11 @@ let private resultView model =
           (model.input.Length = 0)
           (sprintf
             (if model.input = model.sorted then
-                "「%s」をソートしても「%s」"
-              else
-                "「%s」をソートすると「%s」")
+               "「%s」をソートしても「%s」"
+             else
+               "「%s」をソートすると「%s」")
             model.input
-            model.sorted)
-    ]
+            model.sorted) ]
 
 let root model dispatch =
   if model.initializedFromQuery then

@@ -24,8 +24,12 @@ module Model =
     { count = count; words = [] }, Cmd.none
 
   let toPage model =
-    VerbGenerator
-      (if model.count = defaultCount then None else Some model.count)
+    VerbGenerator(
+      if model.count = defaultCount then
+        None
+      else
+        Some model.count
+    )
 
   let update msg model : Model * Cmd<Msg> =
     match msg with
