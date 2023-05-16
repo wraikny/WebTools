@@ -38,7 +38,7 @@ let menu model =
 
       menuItem
         Title.VerbGenerator
-        "fa-rectangles-mixed"
+        "fa-dice"
         (VerbGenerator.Model.toPage model.verbGenerator)
         model.currentPage ]
 
