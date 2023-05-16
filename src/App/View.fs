@@ -36,11 +36,7 @@ let menu model =
         (SortCharacters.Model.toPage model.sortCharacters)
         model.currentPage
 
-      menuItem
-        Title.VerbGenerator
-        "fa-dice"
-        (VerbGenerator.Model.toPage model.verbGenerator)
-        model.currentPage ]
+      menuItem Title.VerbGenerator "fa-dice" (VerbGenerator.Model.toPage model.verbGenerator) model.currentPage ]
 
 let root model (dispatch: Msg -> unit) =
   let pageHtml page =
