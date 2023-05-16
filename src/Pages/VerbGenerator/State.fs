@@ -39,7 +39,7 @@ module Model =
 
       let rec loop acc =
         function
-        | 0 -> []
+        | 0 -> acc
         | count ->
           let n = random.Next(words.Length)
 
