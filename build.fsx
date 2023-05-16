@@ -28,25 +28,26 @@ let formatTargets =
   ++ "build.fsx"
   ++ "scripts/**/*.fsx"
 
-Target.initEnvironment ()
+do
+  Target.initEnvironment ()
 
-Target.create
-  "Format"
-  (fun _ ->
-    formatTargets
-    |> String.concat " "
-    |> dotnet "fantomas"
-  )
+  Target.create
+    "Format"
+    (fun _ ->
+      formatTargets
+      |> String.concat " "
+      |> dotnet "fantomas"
+    )
 
-Target.create
-  "Format.Check"
-  (fun _ ->
-    formatTargets
-    |> String.concat " "
-    |> sprintf "--check %s"
-    |> dotnet "fantomas"
-  )
+  Target.create
+    "Format.Check"
+    (fun _ ->
+      formatTargets
+      |> String.concat " "
+      |> sprintf "--check %s"
+      |> dotnet "fantomas"
+    )
 
-Target.create "None"
+  Target.create "None" ignore
 
-Target.runOrDefault "None"
+  Target.runOrDefault "None"
