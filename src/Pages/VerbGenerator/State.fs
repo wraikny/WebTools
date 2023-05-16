@@ -1,6 +1,7 @@
 namespace WebTools.Pages.VerbGenerator
 
 open Elmish
+open Elmish.Navigation
 
 open WebTools.Global
 
@@ -51,4 +52,5 @@ module Model =
     match msg with
     | SetCount count -> { model with count = count }, Cmd.none
     | Generate ->
-      { model with words = generateWords model.count }, Cmd.none
+      { model with words = generateWords model.count },
+      Navigation.modifyUrl (toPage model |> Page.toPath)

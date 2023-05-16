@@ -43,4 +43,4 @@ module Model =
             input = str
             sorted = sorted
             initializedFromQuery = false },
-        Navigation.modifyUrl (Page.toPath (SortCharacters str))
+        Navigation.modifyUrl (toPage model |> Page.toPath)
