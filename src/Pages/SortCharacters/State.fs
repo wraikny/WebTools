@@ -38,10 +38,11 @@ module Model =
         model, []
       else
         let sorted = new string (str.ToCharArray() |> Array.sort)
+
         let model =
           { model with
               input = str
               sorted = sorted
               initializedFromQuery = false }
-        model,
-        Navigation.modifyUrl (toPage model |> Page.toPath)
+
+        model, Navigation.modifyUrl (toPage model |> Page.toPath)
